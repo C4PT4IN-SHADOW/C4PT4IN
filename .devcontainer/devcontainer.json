@@ -1,0 +1,42 @@
+{
+"name": "C4PT4IN Universal Dev Environment",
+"image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+
+"features": {
+"ghcr.io/devcontainers/features/docker-in-docker:2": {
+"version": "latest"
+},
+"ghcr.io/devcontainers/features/node:1": {
+"version": "lts"
+},
+"ghcr.io/devcontainers/features/python:1": {
+"version": "3.11"
+},
+"ghcr.io/devcontainers/features/git:1": {},
+"ghcr.io/devcontainers/features/rust:1": {
+"version": "latest"
+}
+},
+
+"customizations": {
+"vscode": {
+"settings": {
+"terminal.integrated.defaultProfile.linux": "bash",
+"editor.formatOnSave": true,
+"files.trimTrailingWhitespace": true
+},
+"extensions": [
+"ms-azuretools.vscode-docker",
+"esbenp.prettier-vscode",
+"dbaeumer.vscode-eslint",
+"rust-lang.rust-analyzer",
+"tamasfe.even-better-toml",
+"github.vscode-github-actions"
+]
+}
+},
+
+"postCreateCommand": "sudo apt-get update && sudo apt-get install -y git-lfs curl build-essential libssl-dev pkg-config && git lfs install && npm install -g yarn pnpm && cargo install just",
+
+"postStartCommand": "sudo service docker start || true && docker --version && git lfs version || echo 'Docker/LFS not yet available — try rebuilding container if needed.'"
+}
